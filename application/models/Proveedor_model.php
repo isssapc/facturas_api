@@ -20,7 +20,7 @@ class Proveedor_model extends CI_Model {
         $sql = "SELECT p.*, d.nombre AS dominio 
                 FROM proveedor p 
                 JOIN dominio d ON d.id_dominio= p.id_dominio
-                WHERE p.id_proveedor=$id_proveedor LIMIT 1;";
+                WHERE p.id_cliente=$id_proveedor LIMIT 1;";
 
         $query = $this->db->query($sql);
         return $query->row_array();
@@ -29,7 +29,7 @@ class Proveedor_model extends CI_Model {
     public function add_proveedor($proveedor) {
         $this->db->insert('proveedor', $proveedor);
         $id_proveedor = $this->db->insert_id();
-        $nuevo_proveedor = $this->get_proveedor($id_proveedor);
+        $nuevo_proveedor = $this->get_cliente($id_proveedor);
 
         return $nuevo_proveedor;
     }
