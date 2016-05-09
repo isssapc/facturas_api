@@ -1,6 +1,7 @@
 <?php
 
 require(APPPATH . 'libraries/Producto.php');
+
 class Producto_model extends CI_Model {
 
     public function __construct() {
@@ -12,6 +13,27 @@ class Producto_model extends CI_Model {
         $sql = "SELECT p.*, d.nombre AS dominio 
                 FROM producto p 
                 JOIN dominio d ON p.id_dominio= d.id_dominio;";
+
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function buscar_productos($id_dominio, $search) {
+        if (!isset($id_dominio)) {
+            $id_dominio = 1;
+        }
+
+        $sql = "SELECT p.id_producto, 
+                       p.id_dominio, 
+                       p.descripcion, 
+                       p.precio_unitario, 
+                       p.default_id_impuesto AS id_impuesto,
+                       i.descripcion AS descripcion_impuesto,
+                       i.tasa AS tasa,
+                       i.tipo AS tipo
+                FROM producto p
+                JOIN impuesto i ON i.id_impuesto=p.default_id_impuesto
+                WHERE p.id_dominio= $id_dominio AND p.descripcion LIKE '%" . $this->db->escape_like_str($search) . "%';";
 
         $query = $this->db->query($sql);
         return $query->result_array();
@@ -64,7 +86,6 @@ class Producto_model extends CI_Model {
         foreach ($productos as &$p) {
             $id_impuesto = $p['impuesto'];
             $p['impuesto'] = array("id_impuesto" => $id_impuesto);
-                        
         }
         //eliminamos la referencia del ultimo elemento
         unset($p);

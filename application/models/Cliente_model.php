@@ -34,6 +34,19 @@ class Cliente_model extends CI_Model {
         return $nuevo_cliente;
     }
 
+    public function update_cliente($id_cliente, $cliente) {
+
+
+
+        $where = "id_cliente = $id_cliente";
+        $sql = $this->db->update_string('cliente', $cliente, $where);
+        $query = $this->db->query($sql);
+
+        $cliente = $this->get_cliente($id_cliente);
+
+        return $cliente;
+    }
+
     public function get_nombres($id_dominio) {
         if (!isset($id_dominio)) {
             $id_dominio = 1;
