@@ -36,8 +36,6 @@ class Cliente_model extends CI_Model {
 
     public function update_cliente($id_cliente, $cliente) {
 
-
-
         $where = "id_cliente = $id_cliente";
         $sql = $this->db->update_string('cliente', $cliente, $where);
         $query = $this->db->query($sql);
