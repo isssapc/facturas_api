@@ -1,7 +1,5 @@
 <?php
 
-//require(APPPATH . 'libraries/REST_Controller.php');
-
 class clientes extends MY_Controller {
 
     public function __construct() {
@@ -26,5 +24,18 @@ class clientes extends MY_Controller {
         $datos = $this->cliente_model->get_nombres($id_dominio);
         $this->response($datos);
     }
+
+    public function search_post() {
+        $term = $this->post('term');
+        $datos = $this->cliente_model->search_by_nombre($term);
+        $this->response($datos);
+    }
+    
+    public function update_put($id_cliente){
+        $cliente=  $this->put('cliente');
+        $datos=  $this->cliente_model->update_cliente($id_cliente,$cliente);
+        $this->response($datos);
+    }
+            
 
 }
