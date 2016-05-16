@@ -40,9 +40,9 @@ class Cliente_model extends CI_Model {
         $sql = $this->db->update_string('cliente', $cliente, $where);
         $query = $this->db->query($sql);
 
-        $cliente = $this->get_cliente($id_cliente);
+        $updated = $this->get_cliente($id_cliente);
 
-        return $cliente;
+        return $updated;
     }
 
     public function get_nombres($id_dominio) {
@@ -53,6 +53,16 @@ class Cliente_model extends CI_Model {
         $sql = "SELECT c.id_dominio, c.id_cliente, c.nombre 
                 FROM cliente c 
                 WHERE c.id_dominio= $id_dominio;";
+
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function search_by_nombre($term) {
+        $sql = "SELECT c.*, d.nombre AS dominio 
+                FROM cliente c 
+                JOIN dominio d ON c.id_dominio= d.id_dominio
+                WHERE c.nombre LIKE '%" . $this->db->escape_like_str($term) . "%'";
 
         $query = $this->db->query($sql);
         return $query->result_array();

@@ -31,6 +31,10 @@ class vehiculos extends MY_Controller {
         $this->response($datos);
     }
 
-
+    public function search_post() {
+        $term = $this->post('term');
+        $datos = $this->vehiculo_model->search_by_serie($term);
+        $this->response($datos);
+    }
 
 }

@@ -50,6 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+
+$route['ordenes/(:num)']['get'] = 'ordenes/orden/$1';
+$route['ordenes/(:num)']['put'] = 'ordenes/update/$1';
+
+$route['proveedores/(:num)']['get'] = 'proveedores/proveedor/$1';
+$route['proveedores/(:num)']['put'] = 'proveedores/update/$1';
+
 $route['clientes/(:num)']['get'] = 'clientes/cliente/$1';
 $route['clientes/(:num)']['put'] = 'clientes/update/$1';
 

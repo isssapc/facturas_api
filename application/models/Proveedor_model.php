@@ -47,4 +47,15 @@ class Proveedor_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function update_proveedor($id_proveedor, $proveedor) {
+
+        $where = "id_proveedor = $id_proveedor";
+        $sql = $this->db->update_string('proveedor', $proveedor, $where);
+        $query = $this->db->query($sql);
+
+        $updated = $this->get_proveedor($id_proveedor);
+
+        return $updated;
+    }
+
 }

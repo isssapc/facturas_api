@@ -1,8 +1,7 @@
 <?php
 
-
 class Proveedores extends MY_Controller {
-    
+
     public function __construct() {
         parent::__construct();
         $this->load->model('proveedor_model');
@@ -25,5 +24,16 @@ class Proveedores extends MY_Controller {
         $datos = $this->proveedor_model->get_nombres($id_dominio);
         $this->response($datos);
     }
-    
+
+    public function proveedor_get($id_proveedor) {
+        $datos = $this->proveedor_model->get_proveedor($id_proveedor);
+        $this->response($datos);
+    }
+
+    public function update_put($id_proveedor) {
+        $proveedor = $this->put('proveedor');
+        $datos = $this->proveedor_model->update_proveedor($id_proveedor, $proveedor);
+        $this->response($datos);
+    }
+
 }

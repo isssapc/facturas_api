@@ -45,6 +45,15 @@ class Vehiculo_model extends CI_Model {
         return $vehiculo;
     }
 
+    public function search_by_serie($term) {
 
+        $sql = "SELECT v.*, d.nombre AS dominio 
+                FROM vehiculo v 
+                JOIN dominio d ON v.id_dominio= d.id_dominio
+                WHERE v.num_serie LIKE '%" . $this->db->escape_like_str($term) . "%'";
+
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 
 }
