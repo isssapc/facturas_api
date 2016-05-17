@@ -8,9 +8,11 @@ class Orden_model extends CI_Model {
 
     public function get_ordenes() {
 
-        $sql = "SELECT o.*, d.nombre AS dominio 
+        $sql = "SELECT o.*, d.nombre AS dominio, v.num_serie AS vehiculo, c.nombre AS cliente 
                 FROM orden_servicio o 
-                JOIN dominio d ON o.id_dominio= d.id_dominio;";
+                JOIN dominio d ON o.id_dominio= d.id_dominio
+                JOIN cliente c ON c.id_cliente=o.id_cliente
+                JOIN vehiculo v ON v.id_vehiculo=o.id_vehiculo;";
 
         $query = $this->db->query($sql);
         return $query->result_array();
